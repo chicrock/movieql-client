@@ -15,7 +15,13 @@ Client for the MovieQL API built with Apollo
 ### react-helmet
 
 ```bash
-]$ yarn add react-helmet
+]$ yarn add react-helmet styled-components styled-reset prop-types
+```
+
+### gh-pages
+
+```bash
+]$ yarn add gh-pages --dev
 ```
 
 ### apollo devtool
