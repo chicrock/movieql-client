@@ -1,9 +1,9 @@
 import React from "react";
-import styled from "styled-components";
-import { Query } from "react-apollo";
+import { useQuery } from "react-apollo-hooks";
 import { Helmet } from "react-helmet";
-import { HOME_PAGE } from "./queries";
+import styled from "styled-components";
 import Movie from "./Movie";
+import { HOME_PAGE } from "./queries";
 
 const Container = styled.div`
   display: grid;
@@ -12,16 +12,20 @@ const Container = styled.div`
   justify-items: center;
 `;
 
-const Home = () => (
-  <Container>
-    <Helmet>
-      <title>Home | MovieQL</title>
-    </Helmet>
-    <Query query={HOME_PAGE}>
-      {({ loading, data, error }) => {
-        if (loading) return "loading";
-        if (error) return "something happened";
-        return data.movies.map(movie => (
+const Home = () => {
+  const { data: movieData, error, loading } = useQuery(HOME_PAGE);
+
+  return (
+    <Container>
+      <Helmet>
+        <title>Home | MovieQL</title>
+      </Helmet>
+      {loading && "Loading..."}
+      {!loading && error && "Something is wrong..."}
+      {!loading &&
+        movieData &&
+        movieData.movies &&
+        movieData.movies.map(movie => (
           <Movie
             id={movie.id}
             key={movie.id}
@@ -29,10 +33,9 @@ const Home = () => (
             title={movie.title}
             rating={movie.rating}
           />
-        ));
-      }}
-    </Query>
-  </Container>
-);
+        ))}
+    </Container>
+  );
+};
 
 export default Home;

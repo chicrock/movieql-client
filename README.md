@@ -31,3 +31,33 @@ Client for the MovieQL API built with Apollo
 ## GraphQL
 
 ### Make query with graphql-tag
+
+## Use Hooks
+
+### Install apollo hooks
+
+```bash
+]$ yarn add react-apollo-hooks
+```
+
+### Use apollo hooks
+
+- Need React@^16.7+
+- Doesn't run the query until is loaded when using suspend options.
+
+```javascript
+/// Doesn't use loading variable. Because suspend option make query to suspend until data is loaded
+const { data, error } = useQuery(GET_DOGS, { suspend: true });
+```
+
+```javascript
+/// Setup like this ApolloProvider already exists
+import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
+
+<ApolloProvider client={client}>
+  <ApolloHooksProvider client={client}>
+    <MyRootComponent />
+  </ApolloHooksProvider>
+</ApolloProvider>;
+```
