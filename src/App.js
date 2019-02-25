@@ -5,12 +5,14 @@ import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 import client from "./apolloClient";
 import Home from "./Home";
 import Detail from "./Detail";
+import GlobalStyle from "./globalStyles";
 
 class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
+          <GlobalStyle />
           <Router>
             <main>
               <Route exact={true} path={"/"} component={Home} />
